@@ -1,0 +1,28 @@
+
+/* Centers the nav */
+.navbar-item {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+/* creates line under search */
+
+hr {
+    border-top: 2px solid lightcoral;
+}
+
+/* For the cards */
+
+.header-with-icon {
+    display: flex;
+    align-items: center;
+}
+
+.header-with-icon h2.title {
+    margin-right: 0.5rem;
+}
+
+.header-with-icon span.icon {
+    margin-right: 1rem;
+}
