@@ -26,6 +26,11 @@ $(function () {
 
     // Event Listener for button being pressed and tab-entered.
     searchbtn.on('click keydown', function (event) {
+        
+        
+        // Need to add an if statement that clears storage if there are entries:
+        
+        
         if (event.type === 'click' || event.key === 'Enter') {
             
             // Stores info into lcl storage
@@ -36,7 +41,7 @@ $(function () {
             localStorage.setItem('state', state);
 
             // Lets also create a button on the side:
-            
+
 
 
             // GeoLocate();
@@ -49,6 +54,8 @@ $(function () {
 
     // Fetch APIS here:
 
+
+    // Misc functions
 
 
 
