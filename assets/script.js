@@ -9,8 +9,8 @@ $(function () {
 
     var city = '';
     var state = '';
-    var lat;
-    var lon;
+    var lat = '';
+    var lon = '';
 
 
     // Event Listener for inputs being filled and button appearing for search:
@@ -69,25 +69,53 @@ $(function () {
     // This api gets us the lon and lat coordinates from a different api for the forecast api
 
     function geoLocate() {
-        fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${city},${state},&limit=1&appid=7355009108da9226df5bd810ec2a29ae`)
+        fetch(`https://api.openweathermap.org/geo/1.0/direct?q=${city},${state},&limit=1&appid=7355009108da9226df5bd810ec2a29ae`)
             .then(response => response.json())
             .then(function (data) {
                 
                 console.log(data);
 
                 // Store them in lat and lon data
-                lat = data[0].lat;
-                lon = data[0].lon;
-
+                lat = data[0].lat.toString().trim();
+                lon = data[0].lon.toString().trim();
+                
+                // RUN TODAY
+                today();
+                
                 // RUN 5 DAY
-                // fiveDay();
+                fiveDay();
 
             })
             .catch(err => console.error(err));
     }
 
+    // Make units imperial and used concept learnt from class today for the fetch
+
+
+    function today() {
+        fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=7355009108da9226df5bd810ec2a29ae`)
+            .then(response => response.json())
+            .then(function (data) {
+
+                console.log(data);
+
+
+            })
+            .catch(err => console.error(err));
+    }
+
+
+
     function fiveDay () {
-        
+        fetch(`https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=7355009108da9226df5bd810ec2a29ae`)
+            .then(response => response.json())
+            .then(function (data) {
+
+                console.log(data);
+
+
+            })
+            .catch(err => console.error(err));
     }
 
 
