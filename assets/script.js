@@ -7,6 +7,7 @@ $(function () {
     const searchbtn = $('#search');
     const buttonsContainer = $('#buttons-container');
     const secondCol = $('#secondCol');
+    var hiddnTitle = $('#bottomTitle');
     
     
     // this will appear dynamically:
@@ -17,6 +18,14 @@ $(function () {
     var lat = '';
     var lon = '';
 
+    // these are for the weather details later
+    var icon = '';
+    var iconLink = '';
+    var temp = '';
+    var wind = '';
+    var hum = '';
+
+    
 
     // Event Listener for inputs being filled and button appearing for search:
 
@@ -98,7 +107,7 @@ $(function () {
 
 
     function today() {
-        fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=7355009108da9226df5bd810ec2a29ae`)
+        fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=imperial&appid=7355009108da9226df5bd810ec2a29ae`)
             .then(response => response.json())
             .then(function (data) {
 
@@ -106,23 +115,59 @@ $(function () {
                 
                 
                 // This will check and create a box
-                if (secondCol.children().length === 0){
+                if (todayBox === undefined){
                     todayBox = $('<div>').attr('id', 'todayBox').addClass("box");
                     secondCol.append(todayBox);
                 }
                 
+                // fetches icons for function later
+                icon = data.weather[0].icon;
+                iconLink = `https://openweathermap.org/img/w/${icon}.png`;
+                // curDate = 
+                temp = data.main.temp;
+                wind = data.wind.speed;
+                hum = data.main.humidity;
 
+            
                 // This will populate the box with info.
-                // todayBox();
+                  todayBoxFill();
 
 
             })
             .catch(err => console.error(err));
     }
 
+    // Clear and repopulate info!
+
+    function todayBoxFill() {
+        
+        // Clears information when user enters new city
+        if (todayBox.children().length !== 0) {
+            todayBox.empty();
+        }
+        
+        
+        // Copied code from index commented out code.
+        // Added references to globals.
+        // FIX ISSUES WITH DATES
+        todayBox.append(`<h2 class="subtitle is-2 mb-4">
+                            <b>Today's weather in: </b> ${city} 
+                            <span class="icon is-large">
+                                <img src = ${iconLink}>
+                            </span>
+                        </h2>
+                        <h4 class="subtitle is-4">Temp: ${temp}°F</h4>
+                        <h4 class="subtitle is-4">Wind: ${wind}MPH</h4>
+                        <h4 class="subtitle is-4">Humidity: ${hum}%</h4>`);
+
+        // removes hidden bottom title class before next function starts
+        if (hiddnTitle.hasClass('is-hidden'))
+        hiddnTitle.removeClass('is-hidden');
+    }
 
 
-    function fiveDay () {
+
+    function fiveDay() {
         fetch(`https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=7355009108da9226df5bd810ec2a29ae`)
             .then(response => response.json())
             .then(function (data) {
@@ -135,10 +180,9 @@ $(function () {
     }
 
 
-    // Clear and repopulate info!
 
-    function todayBox() {
-        
-    }
+
+
+
 
 })
