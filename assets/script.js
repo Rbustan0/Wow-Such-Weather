@@ -242,7 +242,7 @@ $(function () {
                                     </span>
                                     <p class="content is-medium">Temp: ${temp}°F</p>
                                     <p class="content is-medium">Wind: ${wind}MPH</p>
-                                    <p class="content is-medium">Humitidy: ${hum}%</p>
+                                    <p class="content is-medium">Humidity: ${hum}%</p>
                                 </div>
                             </div>`)
                 }
