@@ -6,6 +6,11 @@ $(function () {
     const stateInput = $("#state");
     const searchbtn = $('#search');
     const buttonsContainer = $('#buttons-container');
+    const secondCol = $('#secondCol');
+    
+    
+    // this will appear dynamically:
+    var todayBox;
 
     var city = '';
     var state = '';
@@ -83,7 +88,7 @@ $(function () {
                 today();
                 
                 // RUN 5 DAY
-                fiveDay();
+                //fiveDay();
 
             })
             .catch(err => console.error(err));
@@ -98,6 +103,17 @@ $(function () {
             .then(function (data) {
 
                 console.log(data);
+                
+                
+                // This will check and create a box
+                if (secondCol.children().length === 0){
+                    todayBox = $('<div>').attr('id', 'todayBox').addClass("box");
+                    secondCol.append(todayBox);
+                }
+                
+
+                // This will populate the box with info.
+                // todayBox();
 
 
             })
@@ -119,8 +135,10 @@ $(function () {
     }
 
 
-    // Misc functions
+    // Clear and repopulate info!
 
-
+    function todayBox() {
+        
+    }
 
 })
