@@ -23,12 +23,8 @@
     <!-- Basic Nav -->
     <nav class="navbar is-primary is-fixed-top">
         <div class="navbar-brand">
-            <div class="navbar-item is-flex is-align-items-center">
-                <h1 class="title is-fixed-top"> Wow Such Weather
-                    <span class="icon">
-                        <i class="fas fa-dog ml-3"></i>
-                    </span>
-                </h1>
+            <div class="navbar-item is-flex is-align-items-center is-justify-content-flex-end">
+                <h1 class="title is-4"> Wow Such Weather</h1>
             </div>
         </div>
     </nav>
@@ -46,7 +42,7 @@
                     <div class="field-body">
                         <div class="field">
                             <p class="control is-expanded has-icons-left">
-                                <input class="input is-large" type="text" placeholder="City" id = "city">
+                                <input class="input is-large" type="text" placeholder="City" id="city">
                                 <span class="icon is-small is-left">
                                     <i class="fas fa-city"></i>
                                 </span>
@@ -58,7 +54,7 @@
                     <div class="field-body">
                         <div class="field">
                             <p class="control is-expanded has-icons-left">
-                                <input class="input is-large" type="text" placeholder="State Code" id = "state">
+                                <input class="input is-large" type="text" placeholder="State Code" id="state">
                                 <span class="icon is-small is-left">
                                     <i class="fas fa-flag-usa"></i>
                                 </span>
@@ -68,20 +64,20 @@
                 </div>
                 <div class="field">
                     <p class="control">
-                        <button class="button is-primary is-large is-fullwidth is-hidden" id = "search">Search</button>
+                        <button class="button is-primary is-large is-fullwidth is-hidden" id="search">Search</button>
                     </p>
                 </div>
 
                 <hr>
                 <!-- Dynamic buttons container Note: will go up to 30 -->
                 <div class="buttons is-centered mt-4" id="buttons-container">
-                    
-                        <!-- <button class="button is-light is-medium mb-2">Button1</button>
+
+                    <!-- <button class="button is-light is-medium mb-2">Button1</button>
                         <button class="button is-light is-medium mb-2">Button 2</button>
                         <button class="button is-light is-medium mb-2">Button 3</button>
                         <button class="button is-light is-medium mb-2">Button 4</button>
                         <button class="button is-light is-medium mb-2">Button 5</button> -->
-                       
+
                 </div>
             </div>
 
@@ -89,9 +85,11 @@
 
 
 
-                <div class="column" id = 'secondCol'>
+            <div class="column" id='secondCol'>
+
+                <div class = 'row' id='topHalf'>
                     <!-- Second column content here, we want to dynamically create elements here, going to make a mock up in comments -->
-                    <!-- <div class="box" id = "todayBox">
+                    <!-- <div class="box row" id = "todayBox">
                         <h2 class="subtitle is-2 mb-4">
                             <b>Atlanta (Today's Date prob in fetch)</b>
                             <span class="icon is-large">
@@ -104,10 +102,15 @@
                     </div> -->
 
                     <!-- REMEMBER TO REMOVE IS HIDDEN WHEN BOX APPEARS -->
-                    <h3 class="subtitle is-2 is-hidden" id = 'bottomTitle'> 5-Day Forecast: </h3>
+                </div>
+
+
+                <div class = 'row' id='bottomHalf'>
+
+                    <!-- <h3 class="subtitle is-2 " id='bottomTitle'> 5-Day Forecast: </h3> -->
 
                     <!-- 5-day forecast cards here -->
-                    <div class="level is-mobile is-multiline is-justify-content-space-between">
+                    <!-- <div class="level is-mobile is-multiline is-justify-content-space-between " id='cardSpace'> -->
                         <!-- <div class="column is-2" id="weatherCards">
                             <div class="card has-background-grey-light">
                                 <div class="card-content">
@@ -121,19 +124,22 @@
                                     <p class="content is-medium">Wind: data</p>
                                     <p class="content is-medium">Humitidy: data</p>
                                 </div>
-                            </div> -->
-                        </div>
+                            </div> 
+                        </div>-->
+
                     </div>
                 </div>
+            </div>
+        </div>
     </section>
 
 
-<!-- Jquery -->
-<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-<!-- DAY JS -->
-<script src="https://cdn.jsdelivr.net/npm/dayjs@1/dayjs.min.js"></script>
-<!-- JS -->
-<script src="./assets/script.js"></script>
+    <!-- Jquery -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <!-- DAY JS -->
+    <script src="https://cdn.jsdelivr.net/npm/dayjs@1/dayjs.min.js"></script>
+    <!-- JS -->
+    <script src="./assets/script.js"></script>
 </body>
 
 </html>

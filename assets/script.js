@@ -2,7 +2,7 @@
 $(function () {
 
     // Dayjs potential extensions:
-    
+
 
     // Global Constants/Vars go here:
     const cityInput = $("#city");
@@ -10,9 +10,12 @@ $(function () {
     const searchbtn = $('#search');
     const buttonsContainer = $('#buttons-container');
     const secondCol = $('#secondCol');
-    var hiddnTitle = $('#bottomTitle');
-    
-    
+    var topHalf = $('#topHalf');
+    var bottomHalf = $('#bottomHalf');
+    // var hiddnTitle = $('#bottomTitle');
+
+
+
     // this will appear dynamically:
     var todayBox;
 
@@ -23,7 +26,7 @@ $(function () {
 
     // dayjs stuff
     var date;
-    var formattedDate; 
+    var formattedDate;
 
 
     // these are for the weather details later
@@ -33,7 +36,7 @@ $(function () {
     var wind = '';
     var hum = '';
 
-    
+
 
     // Event Listener for inputs being filled and button appearing for search:
 
@@ -72,13 +75,15 @@ $(function () {
             }
 
             // Create a new button element with the desired class and text
-            let newButton = $('<button>').addClass('button is-light is-medium is-fullwidth mb-2').text(city).attr('id', city);
+            let newButton = $('<button>').addClass('button is-light is-medium is-fullwidth mb-2').text(city).attr('id', city).attr('data-state', state);
 
             // Append the new button to the buttons container
             buttonsContainer.append(newButton);
 
 
-             geoLocate();
+            geoLocate();
+
+
         }
     });
 
@@ -94,18 +99,15 @@ $(function () {
         fetch(`https://api.openweathermap.org/geo/1.0/direct?q=${city},${state},&limit=1&appid=7355009108da9226df5bd810ec2a29ae`)
             .then(response => response.json())
             .then(function (data) {
-                
+
                 console.log(data);
 
                 // Store them in lat and lon data
                 lat = data[0].lat.toString().trim();
                 lon = data[0].lon.toString().trim();
-                
+
                 // RUN TODAY
                 today();
-                
-                // RUN 5 DAY
-                //fiveDay();
 
             })
             .catch(err => console.error(err));
@@ -120,30 +122,31 @@ $(function () {
             .then(function (data) {
 
                 console.log(data);
-                
-                
+
+
                 // This will check and create a box
-                if (todayBox === undefined){
-                    todayBox = $('<div>').attr('id', 'todayBox').addClass("box");
-                    secondCol.append(todayBox);
+                if (todayBox === undefined) {
+                    todayBox = $('<div>').attr('id', 'todayBox row').addClass("box");
+                    topHalf.append(todayBox);
                 }
-                
+
                 // fetches icons for function later
                 icon = data.weather[0].icon;
                 iconLink = `https://openweathermap.org/img/w/${icon}.png`;
-                
+
 
                 temp = data.main.temp;
                 wind = data.wind.speed;
                 hum = data.main.humidity;
 
                 date = dayjs.unix(parseInt(data.dt));
-                formattedDate = date.format('DD/MM/YYYY')
+                formattedDate = date.format('DD/MM/YYYY');
 
 
-            
+
                 // This will populate the box with info.
-                  todayBoxFill();
+                todayBoxFill();
+
 
 
             })
@@ -153,16 +156,17 @@ $(function () {
     // Clear and repopulate info!
 
     function todayBoxFill() {
-        
+
         // Clears information when user enters new city
         if (todayBox.children().length !== 0) {
             todayBox.empty();
         }
-        
-        
+
+
         // Copied code from index commented out code.
         // Added references to globals.
-        // FIX ISSUES WITH DATES
+
+
         todayBox.append(`<h2 class="subtitle is-2 mb-4">
                             <b>${city} (${formattedDate}) </b> 
                             <span class="icon is-large">
@@ -173,26 +177,93 @@ $(function () {
                         <h4 class="subtitle is-4">Wind: ${wind}MPH</h4>
                         <h4 class="subtitle is-4">Humidity: ${hum}%</h4>`);
 
-        // removes hidden bottom title class before next function starts
-        if (hiddnTitle.hasClass('is-hidden'))
-        hiddnTitle.removeClass('is-hidden');
+
+        //calls 5 days
+        fiveDay();
+
+
+
+
+
     }
 
 
 
     function fiveDay() {
-        fetch(`https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=7355009108da9226df5bd810ec2a29ae`)
+        fetch(`https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&units=imperial&appid=7355009108da9226df5bd810ec2a29ae`)
             .then(response => response.json())
             .then(function (data) {
 
                 console.log(data);
+
+                //need to iterate through a loop with a bunch of data so no second function call.
+                //cards();
+
+                if (bottomHalf.children().length === 0) {
+                    bottomHalf.append(`<h3 class="subtitle is-2 " id="bottomTitle">5-Day Forecast (at 12PM):</h3>
+            <div class="level is-mobile is-multiline is-justify-content-space-between " id='cardSpace'></div>`);
+
+                }
+
+
+                var cardSpace = $('#cardSpace');
+
+                // clears cards.
+                if (cardSpace.children().length !== 0) {
+                    cardSpace.empty();
+                }
+
+                // need to index starting at 2 and adding 8 for each time card at 12pm
+                for (let i = 2; i < 35; i += 8) {
+
+                    // Need info before card appends:
+
+                    temp = data.list[i].main.temp;
+                    wind = data.list[i].wind.speed;
+                    hum = data.list[i].main.humidity;
+
+                    date = dayjs.unix(parseInt(data.list[i].dt));
+                    formattedDate = date.format('DD/MM/YY');
+
+                    icon = data.list[i].weather[0].icon;
+                    iconLink = `https://openweathermap.org/img/w/${icon}.png`;
+
+                    
+
+
+                    cardSpace.append(`<div class="column is-2" id="weatherCards">
+                            <div class="card has-background-grey-light">
+                                <div class="card-content">
+                                    <div class="header-with-icon">
+                                        <h2 class="title is-4">${formattedDate}</h2>
+                                    </div>
+                                    <span class=" is-large">
+                                            <img src= ${iconLink}></img>
+                                    </span>
+                                    <p class="content is-medium">Temp: ${temp}°F</p>
+                                    <p class="content is-medium">Wind: ${wind}MPH</p>
+                                    <p class="content is-medium">Humitidy: ${hum}%</p>
+                                </div>
+                            </div>`)
+                }
+
+
+
 
 
             })
             .catch(err => console.error(err));
     }
 
+   
+    // for new side button click!
+    $('#buttons-container').on('click', 'button', function () {
+        city = $(this).attr('id');
+        state = $(this).data('state');
 
+        // should recall everything again nicely
+        geoLocate();
+    });
 
 
 
