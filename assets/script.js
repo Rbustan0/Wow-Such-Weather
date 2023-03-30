@@ -1,6 +1,9 @@
 // Quicker startup
 $(function () {
 
+    // Dayjs potential extensions:
+    
+
     // Global Constants/Vars go here:
     const cityInput = $("#city");
     const stateInput = $("#state");
@@ -17,6 +20,11 @@ $(function () {
     var state = '';
     var lat = '';
     var lon = '';
+
+    // dayjs stuff
+    var date;
+    var formattedDate; 
+
 
     // these are for the weather details later
     var icon = '';
@@ -123,10 +131,15 @@ $(function () {
                 // fetches icons for function later
                 icon = data.weather[0].icon;
                 iconLink = `https://openweathermap.org/img/w/${icon}.png`;
-                // curDate = 
+                
+
                 temp = data.main.temp;
                 wind = data.wind.speed;
                 hum = data.main.humidity;
+
+                date = dayjs.unix(parseInt(data.dt));
+                formattedDate = date.format('DD/MM/YYYY')
+
 
             
                 // This will populate the box with info.
@@ -151,7 +164,7 @@ $(function () {
         // Added references to globals.
         // FIX ISSUES WITH DATES
         todayBox.append(`<h2 class="subtitle is-2 mb-4">
-                            <b>Today's weather in: </b> ${city} 
+                            <b>${city} (${formattedDate}) </b> 
                             <span class="icon is-large">
                                 <img src = ${iconLink}>
                             </span>
