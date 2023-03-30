@@ -36,15 +36,14 @@ User can check out how bulma differs from Bootstrap in the html. The user can al
 
 ## Deployment
 
-[Link to Deployed Webpage](https://rbustan0.github.io/My-Calendar/) <br />
+[Link to Deployed Webpage](https://rbustan0.github.io/Wow-Such-Weather/) <br />
 
 [Link to Github User](https://github.com/Rbustan0) <br /><br />
 
 
 ## Screenshots
 
-### Note: Time zone was set to Pacific/Fiji to showcase the colors. <br /><br />
+<br />
 
-![Alt text](assets/Images/127.0.0.1_5501_Homework_Module_5_Challenge_My-Calendar_index.html.png)
+![Alt text](./assets/img/Screenshot%202023-03-30%20143931.jpg)
 
-![Alt text](assets/Images/Snip%20of%20Local%20Storage.jpg)
